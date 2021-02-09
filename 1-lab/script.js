@@ -1,84 +1,86 @@
 
 const include = (url) => {
-    var script = document.createElement('script');
-    script.src = url;
-    document.getElementsByTagName('head')[0].appendChild(script);
+    var script = document.createElement('script')
+    script.src = url
+    document.getElementsByTagName('head')[0].appendChild(script)
 }
-include('/helper.js');
+include('/helperFile.js')
 
-//fibonachi
+//task2
 const fib = () => {
-    let n = document.getElementById('fib_input').value
+    let n = getValue('fib_input')
     let newNum
-
-
-    if (Number(n)) {
-        if (n >= 2){
+    try { // !Number(0) === true
+        if (!Number(n) && Number(n) !== 0) throw new Error('Enter number please')
+        if( n < 2) throw new Error('Enter number > 2')
             newNum = fibNumber(n)
-            
-        } 
-        else {
-            alert('Enter number > 2')
-            document.getElementById('fib_input').value = ''
-            newNum = ''
-        }
-
-    } else {
-        alert('Enter number please')
-        document.getElementById('fib_input').value = ''
+    } catch (e) {
+        alert(e.message)
+        setValue('fib_input', '')
         newNum = ''
     }
-
-
-
     document.getElementById('fib_number').innerHTML = newNum
+    setHTML('fib_number', newNum)
 }
 
 const fibNumber = n => {
+    let fibArray = [1, 1]
     let prev = 1
     let next = 1
     for (let i = 3; i <= n; i++) {
         let z = prev + next
         prev = next
         next = z
+        fibArray.push(next)
     }
-    return next
+    return fibArray
 }
 
 //task3
+
+//n = 7 numRoom = 14 --> floatOfRoom = 5
+//n = 7 numRoom = 11 --> floatOfRoom = 4  5-down/3-up 
+//n = 7 numRoom = 20 --> floatOfRoom = 20
+
 const chooseRoom = () => {
-    let n = document.getElementById('house_input').value;//n = 4 
-    let numRoom = document.getElementById('house_number_input').value;// numroom = 8
+    let n = getValue('house_input')
+    let numRoom = getValue('house_number_input')
 
     let floatOfRoom = Math.ceil(numRoom / 3)
     let text;
     n = Number(n)
-
-    if (n < 0 || numRoom < 0) {
-        text = `Values can\`t be negative`
-    } else if (floatOfRoom > n) {
-        text = `Your room is not exist`
-    } else if (floatOfRoom % 2 !== 0) { //1 3 5
+try{
+    if ((!Number(n) && Number(n) !== 0 )|| (!Number(numRoom) && Number(numRoom) !== 0 )) throw new Error('Enter number please')
+    if (n < 0 || numRoom < 0) throw new Error(`Values can\`t be negative`)
+    if (floatOfRoom > n) throw new Error(`Your room is not exist`)
+    if (floatOfRoom % 2 !== 0) {
         text = `Your room is on float #${floatOfRoom}`
-    } else if (floatOfRoom === n) { // 2 4 6
+    } else if (floatOfRoom === n) {
         text = `Go up to float from #${floatOfRoom - 1} to your float #${floatOfRoom}`
     } else if (floatOfRoom < n) {
-        text = `Your room is on #${floatOfRoom} 
-        Go down from #${floatOfRoom + 1}
+        text = `Your room is on #${floatOfRoom} <br>
+        Go down from #${floatOfRoom + 1} <br> or <br>
         Go up from #${floatOfRoom - 1}`
     }
-
-    document.getElementById('house_answer').innerHTML = text
+}catch(e){
+        alert(e.message)
+        setValue('house_input', '')
+        setValue('house_number_input', '')
+        text = ''
+}
+    setHTML('house_answer', text)
 }
 
 //task4
 const arrayOfMatrix = () => {
-    let textPositive = '';
-    let textNegative = '';
-    const min = -10;
-    const max = 10;
-    let m = document.getElementById('n_number_input').value;
-    let n = document.getElementById('m_number_input').value;
+    setHTML('matrix_output', '')
+    let textPositive = ''
+    let textNegative = ''
+    const min = -10
+    const max = 10
+    let m = getValue('n_number_input') 
+    let n = getValue('m_number_input')
+
     let matrix = []
     for (let i = 0; i < n; i++) {
         matrix[i] = []
@@ -96,15 +98,24 @@ const arrayOfMatrix = () => {
             }
         }
     }
-    // console.log(matrix)
-    document.getElementById('positive_answer').innerHTML = textPositive
-    document.getElementById('negative_answer').innerHTML = textNegative
+    matrix.forEach(m => {
+        m.forEach(n => {
+           document.getElementById('matrix_output').innerHTML += `${n} `
+        })
+        document.getElementById('matrix_output').innerHTML += '<br>'
+    })
+   
+    console.log(matrix)
+    setHTML('positive_answer', textPositive)
+    setHTML('negative_answer', textNegative)
 
 }
+
+//task5
 const getLessons = () => {
-    let group = document.getElementById('group_input').value;
-    let date = document.getElementById('date_input').value;
-    document.getElementById('group_lessons').innerHTML = '';
+    let group = getValue('group_input') 
+    let date = getValue('date_input')
+    setHTML('group_lessons', '')
     lessons.forEach(lesson => {
         if (lesson.group === group && lesson.weekday === date) {
             let node = document.createElement('li')
@@ -114,71 +125,79 @@ const getLessons = () => {
         }
     })
 }
-
-const MathOperationFlow = (operation) => {
-    let a = Number(document.getElementById('a_number_input').value)
-    let b = Number(document.getElementById('b_number_input').value)
-
-    if ((!Number(a) && a !== 0) || (!Number(b) && b !== 0)) {
-        alert('Write correct values')
-        document.getElementById('a_number_input').value = ''
-        document.getElementById('b_number_input').value = ''
-        return
+//task6
+const Calc = (operation) => {
+    let a = Number(getValue('a_number_input'))
+    let b = Number(getValue('b_number_input'))
+    try{
+        if ((!Number(a) && a !== 0) || (!Number(b) && b !== 0)) throw new Error('Write correct values')
+        if (operation === 'division' && b === 0) throw new Error('Can`t do division by 0')
+        switch (operation) {
+            case 'plus':
+                setHTML('output', `${a + b}`)
+                setHTML('choosedOperation', '+')
+                break;
+            case 'minus':
+                setHTML('output', `${a - b}`)
+                setHTML('choosedOperation', '-')
+                break;
+            case 'multiply':
+                setHTML('output', `${a * b}`)
+                setHTML('choosedOperation', '*')
+                break;
+            case 'division':
+                setHTML('output', `${a / b}`)
+                setHTML('choosedOperation', '/')
+                break;
+            default:
+                break;
+        }
+    }catch(e){
+        alert(e.message)
+        setValue('a_number_input', '') 
+        setValue('b_number_input', '') 
+        setHTML('output', '') 
     }
-    if (operation === 'division' && b === 0) {
-        alert('Can`t do division by 0')
-        document.getElementById('b_number_input').value = ''
-        document.getElementById('output').innerHTML = ``
-        return
-    }
-
-    switch (operation) {
-        case 'plus':
-            document.getElementById('output').innerHTML = `${a + b}`
-            document.getElementById('choosedOperations').innerHTML = `+`
-            break;
-        case 'minus':
-            document.getElementById('output').innerHTML = `${a - b}`
-            document.getElementById('choosedOperations').innerHTML = `-`
-            break;
-        case 'multiply':
-            document.getElementById('output').innerHTML = `${a * b}`
-            document.getElementById('choosedOperations').innerHTML = `*`
-            break;
-        case 'division':
-            document.getElementById('output').innerHTML = `${a / b}`
-            document.getElementById('choosedOperations').innerHTML = `/`
-            break;
-
-        default:
-            break;
-    }
+ 
 }
 
-
 //task7
-
 let products = []
 const productFlow = (action) => {
 
-    let name = document.getElementById('name_tov_input').value
-    let price = document.getElementById('price_tov_input').value
-    let number = document.getElementById('number_tov_input').value
+    let name = getValue('name_tov_input')
+    let price = getValue('price_tov_input')
+    let number = getValue('number_tov_input')
 
 
     let product = {}
+    let totalSum = 0
     switch (action) {
         case 'create':
-            if (name && price && number) {
+            try{
+                if((!Number(price)) || (!Number(number))) throw new Error('Write correct values')
+                if(price < 0 || number < 0) throw new Error('Values can`t be negative')
 
+                if (name && price && number) {
                 product['name'] = name
                 product['price'] = price
                 product['number'] = number
+                product['sum'] = price * number
                 products.push(product)
-                document.getElementById('name_tov_input').value = ''
-                document.getElementById('price_tov_input').value = ''
-                document.getElementById('number_tov_input').value = ''
+                setValue('name_tov_input', '')
+                setValue('price_tov_input', '')
+                setValue('number_tov_input', '')
             }
+            }catch(e){
+                alert(e.message)
+                price < 0 && setValue('price_tov_input', '') 
+                number < 0 && setValue('number_tov_input', '') 
+               if( e.message === 'Write correct values'){
+                   setValue('number_tov_input', '') 
+                setValue('price_tov_input', '')
+               }
+            }
+            
             break;
         case 'show':
             let tableElem = '';
@@ -188,18 +207,27 @@ const productFlow = (action) => {
                 <td>${prod.name}</td>
                 <td>${prod.price}</td>
                 <td>${prod.number}</td>
+                <td>${prod.sum}</td>
               </tr>`
+              totalSum += prod.sum
 
             })
-            // document.getElementById("table").style.display = "none";
-            document.getElementById('table_head').innerHTML = `<tr>
-                                                                    <th scope="col">#</th>
-                                                                    <th scope="col">Name</th>
-                                                                    <th scope="col">Price</th>
-                                                                    <th scope="col">Number</th>
-                                                                </tr>`
-            document.getElementById('table_body').innerHTML = tableElem
+            tableElem += `<tr>
+            <th scope="row"></th>
+            <td></td>
+            <td></td>
+            <td>TotalSum</td>
+            <td>${totalSum}</td>
+          </tr>`
+            setHTML('table_head', `<tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Number</th>
+            <th scope="col">Sum</th>
+        </tr>`)
 
+            setHTML('table_body',  tableElem)
             break;
 
         default:
@@ -211,15 +239,14 @@ const productFlow = (action) => {
 
 //task8
 const sentenceInfo = () => {
-    let sentence = document.getElementById('sentence_textarea').value
+    let sentence = getValue('sentence_textarea')
     let vowels = 0;
     let other = 0;
     let massiveOfWords = sentence.split(' ')
     let newSentence = massiveOfWords.map(word => {
         return firstLetterUppercase(word)
     }).join(' ')
-
-    document.getElementById('newSentance').innerHTML = newSentence
+    setHTML('newSentence', newSentence)
 
     for (let i = 0; i < sentence.length; i++) {
         ((/^[aeiouєэауї]$/i).test(sentence[i]))
@@ -227,8 +254,8 @@ const sentenceInfo = () => {
             : other++
     }
     (vowels > other)
-        ? document.getElementById('get_vowels').innerHTML = 'Vowels amount is bigger '
-        : document.getElementById('get_vowels').innerHTML = 'Consonants amount is bigger '
+        ? setHTML('get_vowels', 'Vowels amount is bigger ') 
+        : setHTML('get_vowels', 'Consonants amount is bigger ')  
 }
 
 const firstLetterUppercase = (input) => {

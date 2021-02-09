@@ -1,3 +1,7 @@
+const getValue = id => document.getElementById(id).value
+const setValue = (id, value) => document.getElementById(id).value = value
+const setHTML = (id, value) => document.getElementById(id).innerHTML = value
+
 const lessons = [
     {name: 'Комп\'ютерна електроніка',
     group: 'ik-92',

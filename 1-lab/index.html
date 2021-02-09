@@ -1,64 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css" />
     <script src='script.js'></script>
-    
+
     <title>lab1</title>
 </head>
+
 <body>
-    <div style="text-align: center;"><h2>Lab 1</h2></div>
-    <div>
-        <div>
-            <h3>
+    
+        <h2>Lab 1</h2>
+    
+    <div class='task_content'>
+            <h3 class='task_header'>
                 Task 2
             </h3>
-        </div>
-        Введите n - 
+        Enter <b>n</b>
         <input id='fib_input' type="text">
         <button onclick="fib()">Get</button>
-        <div>
-            Числа фибоначи: <span id='fib_number'></span>
+        <div class='task_output'>
+            Fibonachi array: <span id='fib_number'></span>
         </div>
     </div>
     <div>
-        <div>
-            <h3>
+        <div class='task_content'>
+            <h3 class='task_header'>
                 Task 3
             </h3>
-        </div>
         <div>
-            Введите n этажей - 
+            Enter <b>n</b> этажей -
             <input id='house_input' type="text">
         </div>
         <div>
-            Введите n квартиры - 
+            Введите <b>n</b> квартиры -
             <input id='house_number_input' type="text">
         </div>
-        
+
         <button onclick="chooseRoom()">Get</button>
-        <div>
-            Alert - <span id='house_answer'></span>
+        <div class='task_output'>
+            Instructions - <span id='house_answer'></span>
         </div>
     </div>
-    <div>
-        <div>
-            <h3>
+
+        <div class='task_content'>
+            <h3 class='task_header'>
                 Task 4
             </h3>
-        </div>
         <div>
-            Введите n - 
+            Введите <b>n</b>
             <input id='n_number_input' type="text">
         </div>
         <div>
-            Введите m - 
+            Введите <b>m</b>
             <input id='m_number_input' type="text">
         </div>
         <button onclick="arrayOfMatrix()">Get</button>
+        <div class='task_output'>
+            Your random matrix - <span id='matrix_output'></span>
+        
         <div>
             Положительные значения - <span id='positive_answer'></span>
         </div>
@@ -66,22 +69,22 @@
             Отрицательные значения - <span id='negative_answer'></span>
         </div>
     </div>
-    <div>
-        <div>
-            <h3>
+    </div>
+
+    <div class='task_content'>
+            <h3 class='task_header'>
                 Task 5
             </h3>
-        </div>
         <div>
-            Выберите номер группы - 
+            Выберите номер группы -
             <select class="form-select" id='group_input' aria-label="Default select example">
                 <option selected>Click to choose</option>
                 <option value="ik-92">IK-92</option>
                 <option value="ik-93">IK-93</option>
-              </select>
+            </select>
         </div>
         <div>
-            Выберите день недели - 
+            Выберите день недели -
             <select class='form-select' id="date_input" aria-label="Default select example">
                 <option selected>Click to choose</option>
                 <option value="monday">monday</option>
@@ -89,52 +92,48 @@
                 <option value="wednesday">wednesday</option>
                 <option value="thursday">thursday</option>
                 <option value="friday">friday</option>
-                
-              </select>
+
+            </select>
         </div>
         <button onclick="getLessons()">Get</button>
-        <div>
+        <div class='task_output'>
             <ol id='group_lessons'></ol>
         </div>
     </div>
-    <div>
-        <div>
-            <h3>
+    <div class='task_content'>
+            <h3 class='task_header'>
                 Task 6
             </h3>
-        </div>
         <div>
-            a - 
-            <input id='a_number_input' type="text">
-            <span id='choosedOperations'></span>
-            b - 
-            <input id='b_number_input' type="text">
-             = 
+            <span>
+            <input id='a_number_input' type="text" placeholder="a">
+        </span>
+           <span><span id='choosedOperation'></span>
+            <input id='b_number_input' type="text" placeholder="b"></span>
+            =
             <span id='output'></span>
         </div>
         <div>
-            <button id='plus' onclick="MathOperationFlow('plus')">+</button>
-            <button id='minus' onclick="MathOperationFlow('minus')">-</button>
-            <button id='multiply' onclick="MathOperationFlow('multiply')">*</button>
-            <button id='division' onclick="MathOperationFlow('division')">/</button>
+            <button id='plus' onclick="Calc('plus')">+</button>
+            <button id='minus' onclick="Calc('minus')">-</button>
+            <button id='multiply' onclick="Calc('multiply')">*</button>
+            <button id='division' onclick="Calc('division')">/</button>
         </div>
     </div>
-    <div>
-        <div>
-            <h3>
+    <div class='task_content'>
+            <h3 class='task_header'>
                 Task 7
             </h3>
-        </div>
         <div>
             Name -
             <input id='name_tov_input' type="text">
         </div>
         <div>
-            Price - 
+            Price -
             <input id='price_tov_input' type="text">
         </div>
         <div>
-            Num - 
+            Num -
             <input id='number_tov_input' type="text">
         </div>
         <div>
@@ -143,32 +142,35 @@
         <div>
             <button onclick="productFlow('show')">Show all products</button>
         </div>
-        <table class="table">
+        <div class='task_output'>
+           <table class="table">
             <thead id='table_head'>
             </thead>
             <tbody id='table_body'>
-             
             </tbody>
-          </table>
+        </table> 
+        </div>
+        
     </div>
-    <div>
-        <div>
-            <h3>
+    <div class='task_content'>
+            <h3 class='task_header'>
                 Task 8
             </h3>
-        </div>
         <div>
             <div>
                 Write down you sentence
             </div>
-            
             <textarea name="" id="sentence_textarea" cols="30" rows="5"></textarea>
             <div>
                 <button onclick="sentenceInfo()">Get</button>
             </div>
         </div>
-        <div id='newSentance'></div>
+        <div class='task_output'>
+             <div id='newSentence'></div>
         <h4 id='get_vowels'></h4>
+        </div>
+       
     </div>
 </body>
+
 </html>
